@@ -29,7 +29,6 @@ namespace DockerWeb
     {
         public Startup(IConfiguration configuration)//(IHostingEnvironment env)
         {
-
             Configuration = configuration;
         }
 
@@ -92,6 +91,11 @@ namespace DockerWeb
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+
+            services.AddHttpClient();
+
+
+
             #region 创建文件
 
             File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "recurringjob.json"), Configuration.GetSection("recurringjob").Value);
@@ -104,13 +108,13 @@ namespace DockerWeb
 
                     x.UseRecurringJob("recurringjob.json");
 
-                    x.UseDefaultActivator();
+                    //x.UseDefaultActivator();
                 });
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -139,6 +143,9 @@ namespace DockerWeb
                 Authorization = new[] { new CustomAuthorizeFilter() }
             });
 
+            // Configure hangfire to use the new JobActivator we defined.
+            GlobalConfiguration.Configuration
+                .UseActivator<HangfireActivator>(new HangfireActivator(serviceProvider));
         }
     }
 }
