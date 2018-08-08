@@ -27,32 +27,8 @@ namespace DockerWeb
 {
     public class Startup
     {
-        //public Startup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-
-        //    var builder = new ConfigurationBuilder();
-        //    builder.SetBasePath(Directory.GetCurrentDirectory());
-        //    builder.AddJsonFile("now.json");
-        //    var configRoot = builder.Build();
-
-        //    User userEntity = new User();
-        //    configRoot.GetSection("env").Bind(userEntity);
-        //}
-
         public Startup(IConfiguration configuration)//(IHostingEnvironment env)
         {
-            //var builder = new ConfigurationBuilder()
-            //    .SetBasePath(env.ContentRootPath)
-            //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            //    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-            //    .AddJsonFile("now.json")
-            //    .AddEnvironmentVariables();
-            //Configuration = builder.Build();
-
-            //var builder = new ConfigurationBuilder()
-            //    .AddEnvironmentVariables();
-            //Configuration = builder.Build();
 
             Configuration = configuration;
         }
