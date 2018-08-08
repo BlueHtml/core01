@@ -104,7 +104,7 @@ namespace DockerWeb
 
             services.AddHangfire(x =>
                 {
-                    x.UsePostgreSqlStorage(connectionString);
+                    x.UsePostgreSqlStorage(connectionString, new PostgreSqlStorageOptions() { TransactionSynchronisationTimeout = TimeSpan.FromSeconds(1d) });
 
                     x.UseRecurringJob("recurringjob.json");
 
